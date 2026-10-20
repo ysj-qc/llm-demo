@@ -1,0 +1,21 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 虚拟环境
+.venv/
+venv/
+llm-demo-env/
+
+# 本机配置
+.vscode/
+.env
+.env.*
+
+# 模型权重与缓存
+.cache/
+models/
+checkpoints/
+*.safetensors
+*.pt
+*.pth
