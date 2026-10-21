@@ -37,6 +37,7 @@ def inspect_input(tokenizer, prompt, inputs, enable_thinking):
     print(f"enable_thinking = {enable_thinking}")
     print(prompt.replace("\n", "\\n\n"))
 
+    # 打印 token ID 的详细情况
     print_section("TOKENS")
     input_ids = inputs["input_ids"][0]
     for index, token_id in enumerate(input_ids.tolist()):
@@ -48,6 +49,8 @@ def inspect_input(tokenizer, prompt, inputs, enable_thinking):
 # 预测下一个 token，同时打印中间向量和原始分数
 def inspect_forward(model, tokenizer, inputs):
     input_ids = inputs["input_ids"]
+
+    # 在 embedding 权重矩阵中查表，把每个 token ID 换成 1024 维向量
     embeddings = model.get_input_embeddings()(input_ids)
 
     print_section("EMBEDDINGS")
@@ -57,6 +60,7 @@ def inspect_forward(model, tokenizer, inputs):
         outputs = model(
             **inputs,
             output_hidden_states=True,
+            # 单步计算关闭KV Cache
             use_cache=False,
         )
 
