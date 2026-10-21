@@ -41,7 +41,14 @@ def load_model():
 
 # 调用对话模板，再把结果转换成 PyTorch token 张量
 def prepare_input(tokenizer, device, question, enable_thinking):
-    messages = [{"role": "user", "content": question}]
+    # 把命令行问题组织成应用程序常用的 messages 格式
+    messages = [
+        {
+            "role": "user", 
+            "content": question,
+        }
+    ]
+    
     prompt = tokenizer.apply_chat_template(
         messages,
         tokenize=False,
