@@ -48,13 +48,17 @@ def prepare_input(tokenizer, device, question, enable_thinking):
             "content": question,
         }
     ]
-    
+
     prompt = tokenizer.apply_chat_template(
         messages,
         tokenize=False,
         add_generation_prompt=True,
         enable_thinking=enable_thinking,
     )
+
+    # 根据 tokenizer.json，把 prompt 字符串转换成 token ID 序列
+    # add_special_tokens=False 是不让 tokenizer 再按自己的规矩往两端补边界 token
+    # return_tensors="pt" 中的 pt 表示返回 PyTorch 张量
 
     inputs = tokenizer(
         prompt,
